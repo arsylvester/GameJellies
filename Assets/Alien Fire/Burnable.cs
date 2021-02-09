@@ -10,13 +10,16 @@ public class Burnable : MonoBehaviour
     [SerializeField] float burnDelayMin = .1f;
     [SerializeField] float burnDelayMax = 2;
     [SerializeField] float burnDistance;
+    [SerializeField] Material burntMaterial;
     float burnDelayTime;
     Vector3 burnDirection;
     bool startingToBurn = false;
+    Renderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
+        rend = GetComponent<Renderer>();
         if(onFire)
         {
             StartBurning();
@@ -45,6 +48,7 @@ public class Burnable : MonoBehaviour
     private void StartBurning()
     {
         fireVFX.Play();
+        rend.material = burntMaterial;
         onFire = true;
         if (direction == BurnDirection.Up)
         {
